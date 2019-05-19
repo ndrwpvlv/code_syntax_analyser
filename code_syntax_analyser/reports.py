@@ -37,7 +37,6 @@ class Report(Filters):
 
     def txt_write(self):
         template = Template(self.template)
-        print('{}{}.txt'.format(self.path, self.filename))
         with open('{}{}.txt'.format(self.path, self.filename), 'w') as fw:
             fw.write(template.render(data=self.data))
 
