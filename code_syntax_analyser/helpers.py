@@ -45,16 +45,19 @@ class Filters:
 
 
 def git_clone(git_url: str, working_path: str) -> str:
-    repo = Repo.clone_from(url_check(git_url), path_format(working_path))
-    return path_format(repo.working_dir)
+    try:
+        repo = Repo.clone_from(url_check(git_url), path_format(working_path))
+        return path_format(repo.working_dir)
+    except:
+        sys.exit('Error :: Error on clone repository. Check connection or url')
 
 
 def url_check(url: str) -> any:
     try:
         check = urlparse(url)
-        return url if check else False
+        return url if all([check.scheme, check.netloc, check.path]) else sys.exit('ValueError :: Enter correct url')
     except ValueError:
-        return sys.exit('ValueError :: Enter correct url on restart')
+        sys.exit('ValueError :: Enter correct url')
 
 
 def files_paths_get(path: str, files_extensions: list, files_number_limit: int, ) -> list:

@@ -67,9 +67,8 @@ def main():
 
     try:
         path_temp = directory_temp_create(args['path'])
-    except OSError as e:
-        print(e)
-        sys.exit(errno.EACCES)
+    except OSError:
+        sys.exit('ERROR :: Access denied. Error - {}'.format(errno.EACCES))
 
     repo_path = git_clone(args['git_url'], path_temp)
     code_source = CodeSource(repo_path, args['extensions'], args['files_number_limit'])
