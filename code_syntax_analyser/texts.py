@@ -38,10 +38,10 @@ class TextTokenizer(Filters):
         return self.tokens
 
     def verbs_get(self):
-        return [token for token in self.tokens if len(self.tokens) > 0 and token[1][0] is 'V']
+        return [token[0] for token in self.tokens if len(self.tokens) > 0 and token[1][0] is 'V']
 
     def nouns_get(self):
-        return [token for token in self.tokens if len(self.tokens) > 0 and token[1][0] is 'N']
+        return [token[0] for token in self.tokens if len(self.tokens) > 0 and token[1][0] is 'N']
 
 
 class WordsStatistic(Filters):
