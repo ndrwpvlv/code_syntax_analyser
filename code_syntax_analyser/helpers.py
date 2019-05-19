@@ -76,7 +76,7 @@ def directory_check_exist_and_permissions(path: str):
 
 def directory_temp_create(path: str, suffix: str = ''):
     path_temp = '{}{}/'.format(path_format(path),
-                               re.sub('[^a-zA-Z_0-9\s+]', '', suffix) if len(suffix) > 0 else random_string())
+                               string_strip_alphanums(suffix) if len(suffix) > 0 else random_string())
     if directory_check_exist_and_permissions(path) and not os.path.exists(path_temp):
         os.makedirs(path_temp)
     else:
@@ -99,7 +99,7 @@ def directory_cleanup(path):
 
 
 def extensions_format(s: str) -> list:
-    return ['.%s' % ext for ext in re.sub('[^a-zA-Z_0-9\s+]', '', s).split(' ') if len(ext) > 0] if len(s) > 0 else ['']
+    return ['.%s' % ext for ext in string_strip_alphanums(s).split(' ') if len(ext) > 0] if len(s) > 0 else ['']
 
 
 def list_values_to_str(list_: list) -> list:
@@ -116,6 +116,10 @@ def str_split_camelcase(s: str) -> list:
 
 def str_split_snakecase(s: str) -> list:
     return [w for w in s.split('_') if len(w) > 0]
+
+
+def string_strip_alphanums(s: str):
+    return re.sub('[^a-zA-Z_0-9\s+]', '', s)
 
 
 def random_string(symbols_count: int = 16):
