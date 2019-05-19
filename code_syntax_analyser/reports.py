@@ -13,13 +13,13 @@ class Report(Filters):
     Basic class of reports generator
     """
 
-    def __init__(self, data: list, filename: str, template_jinja: str, path: str = os.getcwd(), ):
+    def __init__(self, data: list, filename: str, template_jinja: str, path: str, ):
         """
 
         :param data: List of data for report processing, list
         :param filename: Filename for saving files, str
         :param template_jinja: Jinja2 template in string, str
-        :param pat
+        :param path of saving files, str
         """
         super(Report, self).__init__()
         self.data = data
