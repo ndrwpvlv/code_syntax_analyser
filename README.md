@@ -50,6 +50,8 @@ python3 -m code_syntax_analyser -g https://github.com/ndrwpvlv/code_syntax_analy
 
 ## Requirements
 ```
+Python 3.5+
+
 gitdb2==2.0.5
 GitPython==2.1.11
 Jinja2==2.10.1
