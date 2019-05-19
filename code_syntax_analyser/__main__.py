@@ -78,7 +78,7 @@ def main():
     tokenizer = TextTokenizer(parser.filter_by(args['syntax_type']))
     words_statistic = WordsStatistic(tokenizer.filter_by(args['words_type']))
     words_top = words_statistic.filter_by('top', args['words_top_size'])
-    report = Report(words_top, REPORT_FILENAME, TEMPLATE_WORDS_TOP, repo_path)
+    report = Report(words_top, REPORT_FILENAME, TEMPLATE_WORDS_TOP, args['path'])
     report.filter_by(args['report_type'])
     print('-----------------\nPROCESSING IS FINISHED')
     if args['cleanup']:
