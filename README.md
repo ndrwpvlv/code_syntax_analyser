@@ -42,6 +42,12 @@ optional arguments:
                              Use it when you need to cleanup temp directory after words processing 
 ```
 
+Example with downloading git, processing nouns from classes 
+```
+python3 -m code_syntax_analyser -g https://github.com/ndrwpvlv/code_syntax_analyser -p /home/ -e py -y noun -s class -c
+
+```
+
 ## Requirements
 ```
 gitdb2==2.0.5
