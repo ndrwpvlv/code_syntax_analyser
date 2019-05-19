@@ -42,7 +42,7 @@ optional arguments:
                              Use it when you need to cleanup temp directory after words processing 
 ```
 
-Example with downloading git, processing nouns from classes 
+Example with downloading git, processing nouns from classes and delete downloaded repo: 
 ```
 python3 -m code_syntax_analyser -g https://github.com/ndrwpvlv/code_syntax_analyser -p /home/ -e py -y noun -s class -c
 
