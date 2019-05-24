@@ -13,11 +13,11 @@ FILES_NUMBER_LIMIT = 1000
 
 # TEXT PROCESSING
 WORDS_TOP_SIZE = 20
-WORDS_TYPES_ACCEPTED = ['all', 'verb', 'noun', ]
-SYNTAX_TYPES_ACCEPTED = ['all', 'function', 'class', 'variables', ]
+WORDS_TYPES_ACCEPTED = ['ALL', 'VERB', 'NOUN', ]
+SYNTAX_TYPES_ACCEPTED = ['ALL', 'FUNCTION', 'CLASS', 'VARIABLE', ]
 
 # REPORT
-REPORTS_TYPES_ACCEPTED = ['all', 'console', 'csv', 'txt', 'json', ]
+REPORTS_TYPES_ACCEPTED = ['ALL', 'CONSOLE', 'CSV', 'TXT', 'JSON', ]
 REPORT_FILENAME = 'report'
 
 TEMPLATE_WORDS_TOP = """

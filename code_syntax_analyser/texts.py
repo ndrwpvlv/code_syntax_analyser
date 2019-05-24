@@ -4,44 +4,37 @@ import collections
 
 import nltk
 
-from .helpers import flat_list, str_split_camelcase, str_split_snakecase, Filters, list_values_to_str
+from .helpers import flatten_list, str_split_camelcase, str_split_snakecase, Filters, list_values_to_str, \
+    filter_tokens_by
 
 
-class TextTokenizer(Filters):
+class TextTokenizer:
     """
     Basic class with ntlk tokenizing of words list
     """
 
-    def __init__(self, words_list: list):
+    def __init__(self, words_list: list, allowed_keys: list, ):
         """
         :param words_list: List of words
         """
-        super(TextTokenizer, self).__init__()
         self.names = list_values_to_str(words_list)
-        self.words = [n.lower() for n in self.names_split()]
-        self.tokens = self.words_tokenizer()
-        self.filter_add('all', self.words_get)
-        self.filter_add('verb', self.verbs_get)
-        self.filter_add('noun', self.nouns_get)
+        self.allowed_keys = [k.upper() for k in allowed_keys]
+        self.words = [n.lower() for n in self.split_names()]
+        self.tokens = self.words_tokenizer(self.words)
 
-    def words_tokenizer(self) -> list:
-        return nltk.pos_tag(self.words)
+    def split_names(self) -> list:
+        return flatten_list(
+            [str_split_snakecase(n) for n in flatten_list([str_split_camelcase(name) for name in self.names])])
 
-    def names_split(self) -> list:
-        return flat_list(
-            [str_split_snakecase(n) for n in flat_list([str_split_camelcase(name) for name in self.names])])
-
-    def words_get(self):
-        return self.words
+    @staticmethod
+    def words_tokenizer(words: list) -> list:
+        return nltk.pos_tag(words, tagset='universal')
 
     def tokens_get(self):
         return self.tokens
 
-    def verbs_get(self):
-        return [token[0] for token in self.tokens if len(self.tokens) > 0 and token[1][0] is 'V']
-
-    def nouns_get(self):
-        return [token[0] for token in self.tokens if len(self.tokens) > 0 and token[1][0] is 'N']
+    def filter_words_by(self, key: str) -> list:
+        return filter_tokens_by(self.tokens, key, self.allowed_keys)
 
 
 class WordsStatistic(Filters):
@@ -55,8 +48,8 @@ class WordsStatistic(Filters):
         """
         super(WordsStatistic, self).__init__()
         self.words = list_values_to_str(words)
-        self.filter_add('top', self.words_top_get)
-        self.filter_add('top_dict', self.words_top_to_dict)
+        self.add_filter('top', self.words_top_get)
+        self.add_filter('top_dict', self.words_top_to_dict)
 
     def words_top_get(self, words_list_size: int) -> list:
         return [[word, count] for word, count in collections.Counter(self.words).most_common(words_list_size)]

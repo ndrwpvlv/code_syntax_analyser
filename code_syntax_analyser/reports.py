@@ -4,7 +4,7 @@ import json
 
 from jinja2 import Template
 
-from .helpers import Filters, path_format
+from .helpers import Filters, format_path
 
 
 class Report(Filters):
@@ -24,32 +24,32 @@ class Report(Filters):
         self.data = data
         self.filename = filename
         self.template = template_jinja
-        self.path = path_format(path)
-        self.filter_add('console', self.console_log)
-        self.filter_add('json', self.json_write)
-        self.filter_add('csv', self.csv_write)
-        self.filter_add('txt', self.txt_write)
-        self.filter_add('all', self.reports_gen_all)
+        self.path = format_path(path)
+        self.add_filter('CONSOLE', self.console_log)
+        self.add_filter('JSON', self.write_json)
+        self.add_filter('CSV', self.write_csv)
+        self.add_filter('TXT', self.write_txt)
+        self.add_filter('ALL', self.gen_reports)
 
     def console_log(self):
         template = Template(self.template)
         print(template.render(data=self.data))
 
-    def txt_write(self):
+    def write_txt(self):
         template = Template(self.template)
         with open('{}{}.txt'.format(self.path, self.filename), 'w') as fw:
             fw.write(template.render(data=self.data))
 
-    def json_write(self):
+    def write_json(self):
         with open('{}{}.json'.format(self.path, self.filename), 'w') as fw:
             fw.write(json.dumps(self.data))
 
-    def csv_write(self):
+    def write_csv(self):
         with open('{}{}.csv'.format(self.path, self.filename), 'w') as fw:
             fw.writelines('{}\n'.format(','.join(map(str, line))) for line in self.data)
 
-    def reports_gen_all(self):
+    def gen_reports(self):
         """Generate all reports"""
         for report in self.filters:
-            if self.filters[report].__name__ is not self.reports_gen_all.__name__:
+            if self.filters[report].__name__ is not self.gen_reports.__name__:
                 self.filters[report]()
