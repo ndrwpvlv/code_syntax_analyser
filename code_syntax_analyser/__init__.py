@@ -5,6 +5,11 @@ __version__ = '0.0.1'
 import nltk
 
 try:
-    nltk.data.find('tokenizers')
+    nltk.data.find('averaged_perceptron_tagger')
 except LookupError:
-    nltk.download('popular')
+    nltk.download('averaged_perceptron_tagger')
+
+try:
+    nltk.data.find('universal_tagset')
+except LookupError:
+    nltk.download('universal_tagset')
