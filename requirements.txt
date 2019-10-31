@@ -2,6 +2,6 @@ gitdb2==2.0.5
 GitPython==2.1.11
 Jinja2==2.10.1
 MarkupSafe==1.1.1
-nltk==3.4.1
+nltk==3.4.5
 six==1.12.0
 smmap2==2.0.5
